@@ -12,6 +12,7 @@ import TopHistoryDatePicker from "src/components/top-history/ui/TopHistoryDatePi
 import {getSelectCountriesList} from "src/components/top-history/lib/getSelectCountriesList.tsx";
 import {getChartLabels} from "src/components/top-history/lib/getChartLabels.ts";
 import {format} from 'date-fns'
+import type {IChartDataset} from "src/components/top-history/lib/chartTypes.ts";
 
 export default function TopHistory(){
   const [fetchChartData, {data: chartData}] = useLazyGetChartDataQuery()
@@ -21,6 +22,7 @@ export default function TopHistory(){
   const [startDate, setStartDate] = useState<Date>(new Date())
   const [endDate, setEndDate] = useState<Date>(new Date())
   const [chartLables, setChartLables] = useState<string[]>([])
+  const [visibleChartData, setVisibleChartData] = useState<IChartDataset[]>()
   
   useEffect(() => {
     fetchChartData({
@@ -39,9 +41,27 @@ export default function TopHistory(){
     setChartLables(getChartLabels(startDate, endDate))
   }, [selectedCountryId, startDate, endDate]);
   
+  useEffect(() => {
+    if (chartData && categoriesData?.data) {
+      setVisibleChartData(transformChartData(chartData, categoriesData.data))
+    }
+  }, [chartData]);
+  
   const handleOnSelect = (countryId: number) => setSelectedCountryId(countryId)
   const handleOnStartDateSelect = (date: Date) => setStartDate(date)
   const handleOnEndDateSelect = (date: Date) => setEndDate(date)
+  
+  const handleOnChange = (label: string) => {
+    if (visibleChartData) {
+      const updated = visibleChartData.map(dataset =>
+        dataset.label === label
+          ? { ...dataset, hidden: !dataset.hidden }
+          : dataset
+      );
+      
+      setVisibleChartData(updated);
+    }
+  }
   
   return (
     <div className={'top-history-wrapper'}>
@@ -69,8 +89,12 @@ export default function TopHistory(){
       
       <hr/>
       
-      {chartData && categoriesData &&
-        <TopHistoryChart labels={chartLables} datasets={transformChartData(chartData, categoriesData.data)}/>
+      {visibleChartData && categoriesData &&
+        <TopHistoryChart
+          labels={chartLables}
+          datasets={visibleChartData}
+          onChange={handleOnChange}
+        />
       }
     </div>
   )
