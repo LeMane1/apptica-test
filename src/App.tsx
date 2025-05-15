@@ -1,3 +1,4 @@
+import 'rsuite/dist/rsuite.min.css';
 import './styles/App.css'
 import TopHistory from "./components/top-history";
 
