@@ -1,6 +1,7 @@
 import DatePicker from 'rsuite/DatePicker';
 import InputGroup from 'rsuite/InputGroup';
 import 'rsuite/DatePicker/styles/index.less';
+import '../styles/topHistoryDatePicker.less'
 
 interface ITopHistoryDatePickerProps {
   onStartDateSelect: (date: Date) => void;
@@ -15,14 +16,14 @@ export default function TopHistoryDatePicker({startDate, endDate, onStartDateSel
   
   return (
     <>
-      <InputGroup style={{ width: 428 }}>
+      <InputGroup className="wrapper">
         <DatePicker
           format="dd.MM.yyyy"
           placeholder={'Select Start Date'}
           block appearance="subtle"
           onSelect={handleOnStartDateSelect}
           value={startDate}
-          style={{ width: 230 }}
+          className='date-picker'
         />
         <InputGroup.Addon>to</InputGroup.Addon>
         <DatePicker
@@ -32,7 +33,7 @@ export default function TopHistoryDatePicker({startDate, endDate, onStartDateSel
           placement={'bottomEnd'}
           onSelect={handleOnEndDateSelect}
           value={endDate}
-          style={{ width: 230 }}
+          className='date-picker'
         />
       </InputGroup>
     </>

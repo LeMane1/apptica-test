@@ -1,5 +1,10 @@
 .top-history-chart {
-  min-width: 375px;
   width: 100%;
+}
+.chart-label-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  gap: 12px;
 }
 /*# sourceMappingURL=topHistoryChartStyle.css.map */

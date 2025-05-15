@@ -32,9 +32,9 @@ export default function TopHistoryChart(
     <div className="top-history-chart">
       <Line data={{labels, datasets}} options={options} />
       
-      <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: 16 }}>
+      <div className='chart-label-wrapper'>
         {datasets.map(ds => (
-          <label key={ds.label} style={{ marginRight: 12 }}>
+          <label key={ds.label}>
             <input
               type="checkbox"
               checked={!ds.hidden}
