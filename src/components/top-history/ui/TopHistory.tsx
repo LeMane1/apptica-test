@@ -17,7 +17,7 @@ export default function TopHistory(){
   const [fetchChartData, {data: chartData}] = useLazyGetChartDataQuery()
   const {data: countriesData} = useGetCountriesListQuery()
   const {data: categoriesData} = useGetCategoriesListQuery()
-  const [selectedCountryId, setSelectedCountryId] = useState<number>(0)
+  const [selectedCountryId, setSelectedCountryId] = useState<number>(1)
   const [startDate, setStartDate] = useState<Date>(new Date())
   const [endDate, setEndDate] = useState<Date>(new Date())
   const [chartLables, setChartLables] = useState<string[]>([])
@@ -25,8 +25,8 @@ export default function TopHistory(){
   useEffect(() => {
     fetchChartData({
       countryId: 1,
-      dateFrom: '2025-05-01',
-      dateTo: new Date().toISOString().split('T')[0]
+      dateFrom: format(new Date(), 'yyyy-MM-dd'),
+      dateTo: format(new Date(), 'yyyy-MM-dd')
     })
   },[])
   
@@ -55,9 +55,12 @@ export default function TopHistory(){
             <TopHistorySelect
               selectOptions={getSelectCountriesList(countriesData.data)}
               onSelect={handleOnSelect}
+              value={selectedCountryId}
             />
           }
           <TopHistoryDatePicker
+            startDate={startDate}
+            endDate={endDate}
             onStartDateSelect={handleOnStartDateSelect}
             onEndDateSelect={handleOnEndDateSelect}
           />

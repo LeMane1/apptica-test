@@ -5,9 +5,11 @@ import 'rsuite/DatePicker/styles/index.less';
 interface ITopHistoryDatePickerProps {
   onStartDateSelect: (date: Date) => void;
   onEndDateSelect: (date: Date) => void;
+  startDate: Date;
+  endDate: Date;
 }
 
-export default function TopHistoryDatePicker({onStartDateSelect, onEndDateSelect}: ITopHistoryDatePickerProps) {
+export default function TopHistoryDatePicker({startDate, endDate, onStartDateSelect, onEndDateSelect}: ITopHistoryDatePickerProps) {
   const handleOnStartDateSelect = (date: Date): void => onStartDateSelect(date)
   const handleOnEndDateSelect = (date: Date): void => onEndDateSelect(date)
   
@@ -19,6 +21,7 @@ export default function TopHistoryDatePicker({onStartDateSelect, onEndDateSelect
           placeholder={'Select Start Date'}
           block appearance="subtle"
           onSelect={handleOnStartDateSelect}
+          value={startDate}
           style={{ width: 230 }}
         />
         <InputGroup.Addon>to</InputGroup.Addon>
@@ -28,6 +31,7 @@ export default function TopHistoryDatePicker({onStartDateSelect, onEndDateSelect
           block appearance="subtle"
           placement={'bottomEnd'}
           onSelect={handleOnEndDateSelect}
+          value={endDate}
           style={{ width: 230 }}
         />
       </InputGroup>
