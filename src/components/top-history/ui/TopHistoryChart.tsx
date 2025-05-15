@@ -9,7 +9,7 @@ import {
   CategoryScale,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-import {useState} from "react";
+// import {useState} from "react";
 import {options} from "src/components/top-history/lib/chartOptions.ts";
 import type {IChartDataset} from "src/components/top-history/lib/chartTypes.ts";
 import '../styles/topHistoryChartStyle.less'
@@ -17,25 +17,25 @@ import '../styles/topHistoryChartStyle.less'
 ChartJS.register(LineElement, PointElement, LinearScale, Title, Tooltip, Legend, CategoryScale)
 
 interface ITopHistoryChartProps {
-  datasetsRaw: IChartDataset[];
+  datasets: IChartDataset[];
   labels: string[];
 }
 
 export default function TopHistoryChart(
   {
-    datasetsRaw,
+    datasets,
     labels
   }: ITopHistoryChartProps) {
-  const [datasets, setDatasets] = useState(datasetsRaw)
-  
-  const toggleVisibility = (label: string) => {
-    setDatasets(prev =>
-      prev.map(ds =>
-        ds.label === label ? { ...ds, hidden: !ds.hidden } : ds
-      )
-    )
-  }
-  
+  // const [datasets, setDatasets] = useState(datasetsRaw)
+  //
+  // const toggleVisibility = (label: string) => {
+  //   setDatasets(prev =>
+  //     prev.map(ds =>
+  //       ds.label === label ? { ...ds, hidden: !ds.hidden } : ds
+  //     )
+  //   )
+  // }
+  //
   const data = {
     labels,
     datasets,
@@ -51,7 +51,7 @@ export default function TopHistoryChart(
             <input
               type="checkbox"
               checked={!ds.hidden}
-              onChange={() => toggleVisibility(ds.label)}
+              // onChange={() => toggleVisibility(ds.label)}
             />
             <span style={{ color: ds.borderColor, marginLeft: 4 }}>{ds.label}</span>
           </label>
