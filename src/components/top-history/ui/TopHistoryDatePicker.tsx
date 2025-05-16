@@ -2,6 +2,7 @@ import DatePicker from 'rsuite/DatePicker';
 import InputGroup from 'rsuite/InputGroup';
 import 'rsuite/DatePicker/styles/index.less';
 import '../styles/topHistoryDatePicker.less'
+import {DATE_FORMAT_2} from "src/components/top-history/lib/constants.ts";
 
 interface ITopHistoryDatePickerProps {
   onStartDateSelect: (date: Date) => void;
@@ -15,27 +16,25 @@ export default function TopHistoryDatePicker({startDate, endDate, onStartDateSel
   const handleOnEndDateSelect = (date: Date): void => onEndDateSelect(date)
   
   return (
-    <>
-      <InputGroup className="wrapper">
-        <DatePicker
-          format="dd.MM.yyyy"
-          placeholder={'Select Start Date'}
-          block appearance="subtle"
-          onSelect={handleOnStartDateSelect}
-          value={startDate}
-          className='date-picker'
-        />
-        <InputGroup.Addon>to</InputGroup.Addon>
-        <DatePicker
-          format="dd.MM.yyyy"
-          placeholder={'Select End Date'}
-          block appearance="subtle"
-          placement={'bottomEnd'}
-          onSelect={handleOnEndDateSelect}
-          value={endDate}
-          className='date-picker'
-        />
-      </InputGroup>
-    </>
+    <InputGroup className="wrapper">
+      <DatePicker
+        format={DATE_FORMAT_2}
+        placeholder={'Select Start Date'}
+        block appearance="subtle"
+        onSelect={handleOnStartDateSelect}
+        value={startDate}
+        className='date-picker'
+      />
+      <InputGroup.Addon>to</InputGroup.Addon>
+      <DatePicker
+        format={DATE_FORMAT_2}
+        placeholder={'Select End Date'}
+        block appearance="subtle"
+        placement={'bottomEnd'}
+        onSelect={handleOnEndDateSelect}
+        value={endDate}
+        className='date-picker'
+      />
+    </InputGroup>
   )
 }

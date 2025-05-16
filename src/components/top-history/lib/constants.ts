@@ -41,3 +41,6 @@ export const SUB_CATEGORIES_LIST: Record<number, ISubCategory> = {
     color: '#9e1010'
   }
 }
+
+export const DATE_FORMAT_1: string = 'yyyy-MM-dd'
+export const DATE_FORMAT_2: string = 'dd.MM.yyyy'

@@ -1,5 +1,5 @@
 import '../styles/topHistoryStyle.less'
-import TopHistoryChart from "src/components/top-history/ui/TopHistoryChart.tsx";
+import TopHistoryChart from "src/components/top-history-chart";
 import {
   useGetCategoriesListQuery,
   useLazyGetChartDataQuery,
@@ -12,10 +12,11 @@ import TopHistoryDatePicker from "src/components/top-history/ui/TopHistoryDatePi
 import {getSelectCountriesList} from "src/components/top-history/lib/getSelectCountriesList.tsx";
 import {getChartLabels} from "src/components/top-history/lib/getChartLabels.ts";
 import {format} from 'date-fns'
-import type {IChartDataset} from "src/components/top-history/lib/chartTypes.ts";
+import type {IChartDataset} from "src/components/top-history-chart/lib/chartTypes.ts";
+import {DATE_FORMAT_1} from "src/components/top-history/lib/constants.ts";
 
 export default function TopHistory(){
-  const [fetchChartData, {data: chartData}] = useLazyGetChartDataQuery()
+  const [fetchChartData, {data: chartData, isLoading, isFetching, isError}] = useLazyGetChartDataQuery()
   const {data: countriesData} = useGetCountriesListQuery()
   const {data: categoriesData} = useGetCategoriesListQuery()
   const [selectedCountryId, setSelectedCountryId] = useState<number>(1)
@@ -27,16 +28,16 @@ export default function TopHistory(){
   useEffect(() => {
     fetchChartData({
       countryId: 1,
-      dateFrom: format(new Date(), 'yyyy-MM-dd'),
-      dateTo: format(new Date(), 'yyyy-MM-dd')
+      dateFrom: format(new Date(), DATE_FORMAT_1),
+      dateTo: format(new Date(), DATE_FORMAT_1)
     })
   },[])
   
   useEffect(() => {
     fetchChartData({
       countryId: selectedCountryId,
-      dateFrom: format(startDate, 'yyyy-MM-dd'),
-      dateTo: format(endDate, 'yyyy-MM-dd')
+      dateFrom: format(startDate, DATE_FORMAT_1),
+      dateTo: format(endDate, DATE_FORMAT_1)
     })
     setChartLables(getChartLabels(startDate, endDate))
   }, [selectedCountryId, startDate, endDate]);
@@ -89,12 +90,24 @@ export default function TopHistory(){
       
       <hr/>
       
-      {visibleChartData && categoriesData &&
+      {visibleChartData && categoriesData && !isError &&
         <TopHistoryChart
           labels={chartLables}
           datasets={visibleChartData}
           onChange={handleOnChange}
+          isVisible={!(isLoading || isFetching)}
         />
+      }
+      
+      {
+        (isLoading || isFetching) &&
+        <div className='loading-wrapper'>
+          <h4>Loading...</h4>
+        </div>
+      }
+      
+      {
+        isError && <h4>Something went wrong. Please try again.</h4>
       }
     </div>
   )

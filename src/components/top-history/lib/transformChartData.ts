@@ -1,4 +1,4 @@
-import type {IChartDataset} from "src/components/top-history/lib/chartTypes";
+import type {IChartDataset} from "src/components/top-history-chart/lib/chartTypes.ts";
 import type {ICategory, IChartDataResponse} from "src/components/top-history/lib/types";
 import {SUB_CATEGORIES_LIST} from "src/components/top-history/lib/constants";
 
