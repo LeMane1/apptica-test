@@ -17,6 +17,7 @@ export default function TopHistorySelect({selectOptions, onSelect, value}: ITopH
       data={selectOptions}
       value={value}
       onSelect={handleOnSelect}
+      cleanable={false}
     />
   )
 }

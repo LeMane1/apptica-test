@@ -24,6 +24,7 @@ export default function TopHistoryDatePicker({startDate, endDate, onStartDateSel
         onSelect={handleOnStartDateSelect}
         value={startDate}
         className='date-picker'
+        cleanable={false}
       />
       <InputGroup.Addon>to</InputGroup.Addon>
       <DatePicker
@@ -34,6 +35,7 @@ export default function TopHistoryDatePicker({startDate, endDate, onStartDateSel
         onSelect={handleOnEndDateSelect}
         value={endDate}
         className='date-picker'
+        cleanable={false}
       />
     </InputGroup>
   )
